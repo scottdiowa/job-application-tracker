@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery (Required for Toastr.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Job Application Tracker</h1>
+    <div class="main-container">
+        <!-- Job Application Form -->
+        <div class="form-container">
+            <form id="jobApplicationForm">
+                <div class="form-group">
+                    <label for="company">Company Name:</label>
+                    <input type="text" id="company" name="company" oninput="syncCompanyName()" placeholder="Enter company name">
+                    <button type="button" class="btn-secondary" onclick="searchCompanyInfo()">Search Company Info</button>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position:</label>
+                    <input type="text" id="position" name="position" placeholder="Enter position applied for">
+                </div>
+                <div class="form-group">
+                    <label for="dateApplied">Date Applied:</label>
+                    <input type="date" id="dateApplied" name="dateApplied">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="" disabled selected>Select status</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Interviewing">Interviewing</option>
+                        <option value="Offer Received">Offer Received</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="button" id="saveButton" class="btn-primary" onclick="addApplication()">Save and Add to Applications</button>
+                    <button type="button" id="resetButton" class="btn-warning" onclick="resetForm()">Reset Form</button>
+                </div>
+            </form>
+
+            <!-- Job Applications Table -->
+            <h2>Job Applications</h2>
+            <table id="applicationsTable">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Position</th>
+                        <th>Date Applied</th>
+                        <th>Status</th>
+                        <th>Website</th>
+                        <th>Industry</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Job applications will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Company Information Section -->
+        <div id="companyInfoSection" class="form-container">
+            <h2>Company Information</h2>
+            <form id="companyInfoForm">
+                <div class="form-group">
+                    <label for="companyNameInfo">Company Name:</label>
+                    <input type="text" id="companyNameInfo" name="companyNameInfo" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="websiteInfo">Company Website:</label>
+                    <input type="url" id="websiteInfo" name="websiteInfo" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label for="industryInfo">Industry:</label>
+                    <input type="text" id="industryInfo" name="industryInfo" placeholder="e.g., Technology, Finance">
+                </div>
+                <div class="form-group">
+                    <label for="headquartersInfo">Headquarters Location:</label>
+                    <input type="text" id="headquartersInfo" name="headquartersInfo" placeholder="Enter headquarters location">
+                </div>
+                <div class="form-group">
+                    <label for="addressInfo">Company Address:</label>
+                    <input type="text" id="addressInfo" name="addressInfo" placeholder="Enter company address">
+                    <button type="button" class="btn-info" onclick="openMap()">Open Map</button>
+                </div>
+                <div class="form-group">
+                    <label for="companySizeInfo">Company Size:</label>
+                    <input type="text" id="companySizeInfo" name="companySizeInfo" placeholder="e.g., 50-100 employees">
+                </div>
+                <div class="form-group">
+                    <label for="annualRevenueInfo">Annual Revenue:</label>
+                    <input type="text" id="annualRevenueInfo" name="annualRevenueInfo" placeholder="Enter annual revenue">
+                </div>
+                <div class="form-group full-width">
+                    <label for="companyCultureInfo">Company Culture Notes:</label>
+                    <textarea id="companyCultureInfo" name="companyCultureInfo" rows="3" placeholder="Enter notes about company culture"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="benefitsInfo">Employee Benefits:</label>
+                    <textarea id="benefitsInfo" name="benefitsInfo" rows="3" placeholder="List employee benefits"></textarea>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn-success" onclick="saveCompanyInfo()">Save Company Info</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Company Search Results -->
+    <div id="companySearchResults" class="search-results-container">
+        <h2>Search Results</h2>
+        <iframe id="searchResultsIframe" title="Company Search Results"></iframe>
+    </div>
+
+    <!-- Modal for Details (if needed) -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalDetailsContent"></div>
+        </div>
+    </div>
+</body>
+</html>
